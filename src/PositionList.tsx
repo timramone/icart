@@ -4,12 +4,12 @@ import RootStore from "./stores/rootStore";
 import { observer } from "mobx-react-lite";
 
 const PositionList = () => {
-  const positions = RootStore.cartStore.positions;
+  const positionIds = Array.from(RootStore.cartStore.positionsMap.keys());
 
   return (
     <div>
-      {positions.map(p => {
-        return <CartPositionPresenter position={p} key={p.id} />;
+      {positionIds.map(id => {
+        return <CartPositionPresenter id={id} key={id} />;
       })}
     </div>
   );

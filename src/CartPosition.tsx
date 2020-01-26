@@ -1,17 +1,14 @@
 ﻿import React, { useCallback } from "react";
 import { Button, Col, Row } from "antd";
 import ButtonGroup from "antd/lib/button/button-group";
-import { CartPositionDto } from "./stores/cartStore";
 import { observer } from "mobx-react-lite";
 import rootStore from "./stores/rootStore";
 
 interface CartPositionProps {
-  position: CartPositionDto;
+  id: string;
 }
 
-const CartPositionPresenter: React.FC<CartPositionProps> = ({
-  position: { id, productName, amount, pricePerItem }
-}) => {
+const CartPositionPresenter: React.FC<CartPositionProps> = ({ id }) => {
   const {
     increasePositionAmount,
     decreasePositionAmount
@@ -21,6 +18,13 @@ const CartPositionPresenter: React.FC<CartPositionProps> = ({
   const decreaseCurrent = useCallback(() => decreasePositionAmount(id), [id]);
 
   console.log(`Rerender for position ${id}`);
+
+  const {
+    productId,
+    amount,
+    pricePerItem
+  } = rootStore.cartStore.positionsMap.get(id)!;
+  const productName = rootStore.productStore.products.get(productId)!.name;
 
   return (
     <Row type="flex" key={id} gutter={[16, 10]}>

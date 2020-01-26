@@ -18,7 +18,7 @@ export interface CartPositionDto {
 
 class CartStore {
   @observable
-  private readonly positionsMap: Map<string, CartPosition> = new Map<
+  public readonly positionsMap: Map<string, CartPosition> = new Map<
     string,
     CartPosition
   >();

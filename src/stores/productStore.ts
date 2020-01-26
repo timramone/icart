@@ -35,7 +35,7 @@ const products: Product[] = [
 ];
 
 class ProductStore {
-  @observable readonly products: Map<string, Product> = new Map<
+  @observable public readonly products: Map<string, Product> = new Map<
     string,
     Product
   >();
