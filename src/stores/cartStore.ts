@@ -75,7 +75,15 @@ class CartStore {
 
   @action
   public decreasePositionAmount = (id: string) => {
-    this.positionsMap.get(id)!.amount--;
+    const position = this.positionsMap.get(id);
+
+    if (position == null) return;
+
+    position.amount--;
+
+    if (position.amount === 0) {
+      this.positionsMap.delete(id);
+    }
   };
 }
 
