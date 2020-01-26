@@ -30,7 +30,7 @@ const Cart: React.FC = () => {
     <div style={cartStyle}>
       <PositionList />
       <AddProduct />
-      <Total total={100500} />
+      <Total />
     </div>
   );
 };

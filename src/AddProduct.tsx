@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import { Button, Col, Row } from "antd";
+import rootStore from "./stores/rootStore";
 
 const style: React.CSSProperties = {
   margin: "10px 40px"
@@ -10,7 +11,13 @@ const AddProduct = () => {
     <Row type="flex" gutter={[16, 16]}>
       <Col span={1} />
       <Col span={3}>
-        <Button type="primary" shape="circle" icon="plus" size="large" />
+        <Button
+          onClick={rootStore.cartStore.addPosition}
+          type="primary"
+          shape="circle"
+          icon="plus"
+          size="large"
+        />
       </Col>
     </Row>
   );

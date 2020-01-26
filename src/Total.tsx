@@ -1,20 +1,18 @@
 ﻿import React from "react";
 import { Col, Row } from "antd";
+import { observer } from "mobx-react-lite";
+import rootStore from "./stores/rootStore";
 
-interface Props {
-  total: number;
-}
-
-const Total: React.FC<Props> = ({ total }) => {
+const Total: React.FC = () => {
   return (
     <Row type="flex" align="bottom" gutter={[16, 20]}>
-      <Col key="product" span={15} />
+      <Col key="product" span={18} />
       <Col key="position-total" span={3}>
-        {total}
+        Total: {rootStore.cartStore.total}
       </Col>
-      <Col span={6} />
+      <Col span={3} />
     </Row>
   );
 };
 
-export default Total;
+export default observer(Total);
