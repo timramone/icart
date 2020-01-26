@@ -1,6 +1,15 @@
-﻿import { action, computed, observable, runInAction } from "mobx";
+﻿import {
+  action,
+  comparer,
+  computed,
+  observable,
+  reaction,
+  runInAction
+} from "mobx";
 import ProductStore, { Product } from "./productStore";
 import guid from "uuid/v4";
+import { Icon, notification } from "antd";
+import React from "react";
 
 export interface CartPosition {
   id: string;
@@ -23,20 +32,36 @@ class CartStore {
     CartPosition
   >();
 
-  constructor(readonly productStore: ProductStore) {}
+  constructor(readonly productStore: ProductStore) {
+    const savedCartJSON = window.localStorage.getItem("icart-position-map");
+    if (savedCartJSON != null) {
+      const positions = JSON.parse(savedCartJSON) as CartPosition[];
+      runInAction(() => {
+        positions.forEach(p => {
+          this.positionsMap.set(p.id, p);
+        });
+      });
+    }
 
-  @computed
-  public get positions(): CartPositionDto[] {
-    return Array.from(this.positionsMap.values()).map(
-      ({ pricePerItem, productId, id, amount }) => {
-        const productName = this.productStore.products.get(productId)!.name;
+    reaction(
+      () => JSON.stringify(this.positionsMap),
+      positionsMap => {
+        console.log("positions change");
 
-        return {
-          id,
-          productName,
-          pricePerItem,
-          amount
-        };
+        const positions = Array.from(this.positionsMap.values());
+        const positionsJSON = JSON.stringify(positions);
+
+        window.localStorage.setItem("icart-position-map", positionsJSON);
+
+        notification.open({
+          message: "Changes saved",
+          description: "Hit F5 to refresh",
+          icon: <Icon type="save" style={{ color: "#108ee9" }} />,
+          duration: 3
+        });
+      },
+      {
+        delay: 2000
       }
     );
   }
