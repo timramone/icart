@@ -2,16 +2,17 @@
 import CartPositionPresenter from "./CartPosition";
 import RootStore from "./stores/rootStore";
 import { observer } from "mobx-react-lite";
+import { List } from "antd";
 
 const PositionList = () => {
   const positionIds = Array.from(RootStore.cartStore.positionsMap.keys());
 
   return (
-    <div>
-      {positionIds.map(id => {
-        return <CartPositionPresenter id={id} key={id} />;
-      })}
-    </div>
+    <List>
+      {positionIds.map(id => (
+        <CartPositionPresenter id={id} key={id} />
+      ))}
+    </List>
   );
 };
 

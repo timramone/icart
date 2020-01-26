@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Layout } from "antd";
+import { Divider, Layout } from "antd";
 import Total from "./Total";
 import PositionList from "./PositionList";
 import AddProduct from "./AddProduct";
@@ -9,10 +9,10 @@ const cartStyle: React.CSSProperties = {
   marginTop: 20,
   marginBottom: 20,
   marginLeft: 100,
-  padding: 5,
   width: 800,
-  border: "black 1px solid",
-  minHeight: 500
+  minHeight: 500,
+  backgroundColor: "#F5F5F5",
+  padding: 24
 };
 
 const App: React.FC = () => {
@@ -30,6 +30,7 @@ const Cart: React.FC = () => {
     <div style={cartStyle}>
       <PositionList />
       <AddProduct />
+      <Divider />
       <Total />
     </div>
   );
